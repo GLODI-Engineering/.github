@@ -48,30 +48,29 @@ schematic (.gsim_sch)  →  gsim-core  →  netlist  →  general-simulator  →
 | **[spice-lsp](https://github.com/GLODI-Engineering/spice-lsp)** | SPICE netlist tooling: a dialect-agnostic lexer, parser and symbol table (ngspice, Xyce). Rust, AGPL-3.0. |
 | **[gs-ui-probe](https://github.com/GLODI-Engineering/gs-ui-probe)** | Drive a web UI the way a person does — real pointer travel, real drags, real keystrokes. Playwright underneath, no knowledge of any particular application. TypeScript, AGPL-3.0. |
 
-## Who is behind this
+## About GLODI Engineering
 
-I am a power-electronics engineer. I design converters and the control that runs them, and I
-build these tools because the ones I had kept answering a different question from the one I
-asked.
+GLODI Engineering builds simulation tools for power electronics: converters, their magnetics, and
+the control that runs them. The tools are written for the engineer who has to defend a number,
+not only plot one.
 
-What started it is a particular kind of failure: a simulation that looks right. A transformer
-wired with the wrong sign absorbed power on both sides and still drew a clean primary waveform.
-A magnetising current drifted from 40 A to 245 A and nothing said a word until someone measured
-it. A solver failure arrived as a bare string — no time, no step, no indication of which switches
-had moved.
+The work starts from a failure mode rather than a feature list — a simulation that looks right. A
+transformer wired with the wrong sign absorbs power on both sides and still draws a clean primary
+waveform. A magnetising current drifts from 40 A to 245 A and nothing says so until someone
+measures it. A solver failure arrives as a bare string, with no time, no step, and no indication
+of which switches moved.
 
-So the engine rests on two decisions. Piecewise-linear devices are resolved as a linear
-complementarity problem at every step instead of by Newton–Raphson with voltage limiting, so a
-switching instant is *found* rather than iterated towards. And a run that breaks a rating, a
-balance or a bound reports it as an event carrying the time, the value and the component that did
-it, because a wrong simulation should say so rather than produce a plausible curve.
+Two decisions follow from that. Piecewise-linear devices are resolved as a **linear
+complementarity problem** at every step instead of by Newton–Raphson with voltage limiting, so a
+switching instant is found rather than iterated towards. And a run that breaks a rating, a
+balance or a bound **reports it as an event** carrying the time, the value and the component
+responsible, because a wrong simulation is expected to say so.
 
-The editor has its own name because the same drawing should outlive the choice of engine
-underneath it.
+The editor is named apart from the engine because a drawing should outlive the choice of engine
+underneath it: Omni Schematics runs `general-simulator` today and is built to run others.
 
-Everything here is open source, published on crates.io, and documented with examples that were
-run before they were written down. If you try it and something is wrong, open an issue — I read
-them.
+Everything published here is open source, released on crates.io, and documented with examples
+that are run before they are written down. Issues are read and answered.
 
 ## What it is for
 
